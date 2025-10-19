@@ -3,21 +3,31 @@ import { FaBars, FaTimes } from "react-icons/fa";
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
-
   const toggleNav = () => setNavOpen(!navOpen);
+
+  // Smooth scroll handler
+  const handleScroll = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+    setNavOpen(false); // close mobile menu after click
+  };
 
   return (
     <header className="bg-gray-800 text-white shadow-md fixed w-full z-50">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
-        <div className="text-2xl font-bold cursor-pointer">Aaditya Tech</div>
+        <div className="text-2xl font-bold cursor-pointer" onClick={() => handleScroll("home")}>
+          Aaditya Tech
+        </div>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex space-x-6">
-          <a href="#" className="hover:text-gray-200">Home</a>
-          <a href="#" className="hover:text-gray-200">Service</a>
-          <a href="#" className="hover:text-gray-200">AboutUs</a>
-          <a href="#" className="hover:text-gray-200">ContactUs</a>
+          <button onClick={() => handleScroll("home")} className="hover:text-gray-200">Home</button>
+          <button onClick={() => handleScroll("services")} className="hover:text-gray-200">Service</button>
+          <button onClick={() => handleScroll("about")} className="hover:text-gray-200">AboutUs</button>
+          <button onClick={() => handleScroll("contact")} className="hover:text-gray-200">ContactUs</button>
         </nav>
 
         {/* Mobile Hamburger */}
@@ -29,10 +39,10 @@ const Header = () => {
       {/* Mobile Menu */}
       {navOpen && (
         <div className="md:hidden bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 pb-4">
-          <a href="#" className="block py-2 border-b border-white">Home</a>
-          <a href="#" className="block py-2 border-b border-white">Service</a>
-          <a href="#" className="block py-2 border-b border-white">AboutUs</a>
-          <a href="#" className="block py-2">ContactUs</a>
+          <button onClick={() => handleScroll("home")} className="block py-2 border-b border-white w-full text-left">Home</button>
+          <button onClick={() => handleScroll("services")} className="block py-2 border-b border-white w-full text-left">Service</button>
+          <button onClick={() => handleScroll("about")} className="block py-2 border-b border-white w-full text-left">AboutUs</button>
+          <button onClick={() => handleScroll("contact")} className="block py-2 w-full text-left">ContactUs</button>
         </div>
       )}
     </header>
